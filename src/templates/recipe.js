@@ -9,6 +9,18 @@ const Recipe = ({ data }) => {
         <h1>{data.contentfulRecipe.title}</h1>
         <p>Cooking time: {data.contentfulRecipe.cookingTimeMins}</p>
         <p>Serves: {data.contentfulRecipe.serves}</p>
+        <h2>Ingredients</h2>
+        <ul>
+          {data.contentfulRecipe.ingredients.map(ingredient => (
+            <li>{ingredient}</li>
+          ))}
+        </ul>
+        <h2>Method</h2>
+        <ol>
+          {data.contentfulRecipe.method.map(step => (
+            <li>{step}</li>
+          ))}
+        </ol>
       </div>
     </Layout>
   )
