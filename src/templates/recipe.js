@@ -11,14 +11,26 @@ const Recipe = ({ data }) => {
         <p>Serves: {data.contentfulRecipe.serves}</p>
         <h2>Ingredients</h2>
         <ul>
-          {data.contentfulRecipe.ingredients.map(ingredient => (
-            <li>{ingredient}</li>
+          {data.contentfulRecipe.ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
           ))}
         </ul>
+        {data.contentfulRecipe.preparation ? (
+          <>
+            <h2>Preparation</h2>
+            <ol>
+              {data.contentfulRecipe.preparation.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
+            </ol>
+          </>
+        ) : (
+          ""
+        )}
         <h2>Method</h2>
         <ol>
-          {data.contentfulRecipe.method.map(step => (
-            <li>{step}</li>
+          {data.contentfulRecipe.method.map((step, index) => (
+            <li key={index}>{step}</li>
           ))}
         </ol>
       </div>
@@ -34,6 +46,7 @@ export const query = graphql`
       title
       cookingTimeMins
       ingredients
+      preparation
       method
       serves
     }
