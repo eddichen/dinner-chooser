@@ -1,6 +1,6 @@
-import React from "react"
-import { Link } from "gatsby"
-import Layout from "../components/layout"
+import React from 'react';
+import { Link, graphql } from 'gatsby';
+import Layout from '../components/layout';
 
 const IndexPage = ({ data }) => {
   return (
@@ -11,10 +11,10 @@ const IndexPage = ({ data }) => {
         </Link>
       ))}
     </Layout>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
 
 export const pageQuery = graphql`
   query RecipeListQuery {
@@ -27,4 +27,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

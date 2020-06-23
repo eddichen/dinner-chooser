@@ -1,6 +1,6 @@
-import React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
+import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout';
 
 const Recipe = ({ data }) => {
   return (
@@ -25,7 +25,7 @@ const Recipe = ({ data }) => {
             </ol>
           </>
         ) : (
-          ""
+          ''
         )}
         <h2>Method</h2>
         <ol>
@@ -35,10 +35,10 @@ const Recipe = ({ data }) => {
         </ol>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Recipe
+export default Recipe;
 
 export const query = graphql`
   query RecipeQuery($slug: String!) {
@@ -51,4 +51,4 @@ export const query = graphql`
       serves
     }
   }
-`
+`;
