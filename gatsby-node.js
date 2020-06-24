@@ -3,11 +3,11 @@
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
-const path = require("path")
+const path = require('path');
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
-  const recipeTemplate = path.resolve(`src/templates/recipe.js`)
+  const { createPage } = actions;
+  const recipeTemplate = path.resolve('src/templates/recipe.tsx');
   return graphql(`
     query {
       allContentfulRecipe {
@@ -20,16 +20,16 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(result => {
     if (result.errors) {
-      throw result.errors
+      throw result.errors;
     }
     result.data.allContentfulRecipe.edges.forEach(edge => {
       createPage({
         path: `/recipe/${edge.node.url}`,
         component: recipeTemplate,
         context: {
-          slug: edge.node.url,
-        },
-      })
-    })
-  })
-}
+          slug: edge.node.url
+        }
+      });
+    });
+  });
+};
