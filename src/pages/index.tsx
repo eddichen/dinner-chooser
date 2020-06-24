@@ -5,13 +5,11 @@ import Layout from '../components/layout';
 interface RecipeList {
   data: {
     allContentfulRecipe: {
-      edges: [
+      nodes: [
         {
-          node: {
-            id: string;
-            title: string;
-            url: string;
-          };
+          id: string;
+          title: string;
+          url: string;
         }
       ];
     };
@@ -21,7 +19,7 @@ interface RecipeList {
 const IndexPage = ({ data }: RecipeList) => {
   return (
     <Layout>
-      {data.allContentfulRecipe.edges.map(({ node }) => (
+      {data.allContentfulRecipe.nodes.map(node => (
         <Link to={`/recipe/${node.url}/`} key={node.id}>
           <h2>{node.title}</h2>
         </Link>
@@ -35,11 +33,10 @@ export default IndexPage;
 export const pageQuery = graphql`
   query RecipeListQuery {
     allContentfulRecipe {
-      edges {
-        node {
-          title
-          url
-        }
+      nodes {
+        id
+        title
+        url
       }
     }
   }
