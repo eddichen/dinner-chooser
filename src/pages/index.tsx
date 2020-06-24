@@ -2,11 +2,27 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
 
-const IndexPage = ({ data }) => {
+interface Recipe {
+  data: {
+    allContentfulRecipe: {
+      edges: [
+        {
+          node: {
+            id: string;
+            title: string;
+            url: string;
+          };
+        }
+      ];
+    };
+  };
+}
+
+const IndexPage = ({ data }: Recipe) => {
   return (
     <Layout>
-      {data.allContentfulRecipe.edges.map(({ node }, index) => (
-        <Link to={`/recipe/${node.url}/`} key={index}>
+      {data.allContentfulRecipe.edges.map(({ node }) => (
+        <Link to={`/recipe/${node.url}/`} key={node.id}>
           <h2>{node.title}</h2>
         </Link>
       ))}
