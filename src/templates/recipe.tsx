@@ -5,6 +5,12 @@ import Layout from '../components/layout';
 interface Recipe {
   data: {
     contentfulRecipe: {
+      image: {
+        description: string;
+        file: {
+          url: string;
+        };
+      };
       title: string;
       cookingTimeMins: number;
       ingredients: [string];
@@ -19,6 +25,14 @@ const Recipe = ({ data }: Recipe) => {
   return (
     <Layout>
       <div>
+        {data.contentfulRecipe.image !== null ? (
+          <img
+            src={data.contentfulRecipe.image.file.url}
+            alt={data.contentfulRecipe.image.description}
+          />
+        ) : (
+          ''
+        )}
         <h1>{data.contentfulRecipe.title}</h1>
         <p>Cooking time: {data.contentfulRecipe.cookingTimeMins}</p>
         <p>Serves: {data.contentfulRecipe.serves}</p>
@@ -56,6 +70,12 @@ export default Recipe;
 export const query = graphql`
   query RecipeQuery($slug: String!) {
     contentfulRecipe(url: { eq: $slug }) {
+      image {
+        description
+        file {
+          url
+        }
+      }
       title
       cookingTimeMins
       ingredients
