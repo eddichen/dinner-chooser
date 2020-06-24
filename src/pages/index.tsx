@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
 
-interface Recipe {
+interface RecipeList {
   data: {
     allContentfulRecipe: {
       edges: [
@@ -18,7 +18,7 @@ interface Recipe {
   };
 }
 
-const IndexPage = ({ data }: Recipe) => {
+const IndexPage = ({ data }: RecipeList) => {
   return (
     <Layout>
       {data.allContentfulRecipe.edges.map(({ node }) => (

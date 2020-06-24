@@ -2,7 +2,20 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 
-const Recipe = ({ data }) => {
+interface Recipe {
+  data: {
+    contentfulRecipe: {
+      title: string;
+      cookingTimeMins: number;
+      ingredients: [string];
+      preparation: [string];
+      method: [string];
+      serves: number;
+    };
+  };
+}
+
+const Recipe = ({ data }: Recipe) => {
   return (
     <Layout>
       <div>
