@@ -14,8 +14,8 @@ const HeaderContainer = styled.header`
 
 const HeaderInnerContainer = styled.div`
   margin: 0 auto;
-  max-width: 960px;
-  padding: 1.45rem 1.0875rem;
+  max-width: ${props => props.theme.siteWidth};
+  padding: ${props => props.theme.spacing.md} ${props => props.theme.spacing.lg};
 `;
 
 const HeaderTitle = styled.h1`

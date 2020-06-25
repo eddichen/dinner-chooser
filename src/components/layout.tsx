@@ -7,15 +7,15 @@
 
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import Header from './header';
-import './layout.css';
+import { theme, GlobalStyle } from '../theme';
 
 const Container = styled.div`
   margin: 0 auto;
-  max-width: 960px;
-  padding: 0 1.0875rem 1.45rem;
+  max-width: ${props => props.theme.siteWidth};
+  padding: 0 ${props => props.theme.spacing.lg};
 `;
 
 interface Props {
@@ -34,12 +34,13 @@ const Layout = ({ children }: Props) => {
   `);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <Header siteTitle={data.site.siteMetadata.title} />
       <Container>
         <main>{children}</main>
       </Container>
-    </>
+    </ThemeProvider>
   );
 };
 
