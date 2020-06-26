@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
+import { Clock, Users } from 'react-feather';
 
 import Layout from '../components/layout';
 
@@ -26,27 +27,75 @@ interface Recipe {
 const RecipeLayout = styled.div`
   @media screen and (min-width: ${props => props.theme.breakpoint.md}) {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr ${props => props.theme.spacing.xl} 1fr;
   }
+`;
+
+const RecipeAttributes = styled.div`
+  display: flex;
+  font-family: ${props => props.theme.fontFamily.sansSerif};
+`;
+
+const RecipeAttribute = styled.p`
+  display: flex;
+  margin-right: ${props => props.theme.spacing.md};
+`;
+
+const RecipeAttributeText = styled.span`
+  display: inline-block;
+  margin-left: ${props => props.theme.spacing.sm};
 `;
 
 const RecipeIntro = styled.div`
+  margin-bottom: ${props => props.theme.spacing.lg};
+
   @media screen and (min-width: 48em) {
-    grid-column: 1/3;
+    grid-column: 1/4;
   }
+`;
+
+const RecipeTitle = styled.h1`
+  font-size: ${props => props.theme.fontSize.xxl};
+`;
+
+const RecipeTitleSecondary = styled.h2`
+  font-size: ${props => props.theme.fontSize.xl};
+  margin-bottom: ${props => props.theme.spacing.md};
 `;
 
 const Ingredients = styled.div`
+  font-size: ${props => props.theme.fontSize.lg};
+  margin-bottom: ${props => props.theme.spacing.lg};
+
   @media screen and (min-width: 48em) {
-    grid-column: 2;
+    grid-column: 3;
   }
 `;
 
-const Method = styled.div`
+const IngredientsList = styled.ul`
+  list-style-type: none;
+  margin: 0;
+`;
+
+const RecipeSteps = styled.div`
   @media screen and (min-width: 48em) {
     grid-column: 1;
     grid-row: 2;
   }
+`;
+
+const RecipeStepsListItem = styled.li`
+  margin-bottom: ${props => props.theme.spacing.md};
+`;
+
+const Preparation = styled.div`
+  font-size: ${props => props.theme.fontSize.lg};
+  margin-bottom: ${props => props.theme.spacing.lg};
+`;
+
+const Method = styled.div`
+  font-size: ${props => props.theme.fontSize.lg};
+  margin-bottom: ${props => props.theme.spacing.lg};
 `;
 
 const Recipe = ({ data }: Recipe) => {
@@ -62,38 +111,53 @@ const Recipe = ({ data }: Recipe) => {
           ) : (
             ''
           )}
-          <h1>{data.contentfulRecipe.title}</h1>
-          <p>Cooking time: {data.contentfulRecipe.cookingTimeMins}</p>
-          <p>Serves: {data.contentfulRecipe.serves}</p>
+          <RecipeTitle>{data.contentfulRecipe.title}</RecipeTitle>
+          <RecipeAttributes>
+            <RecipeAttribute>
+              <Users />{' '}
+              <RecipeAttributeText>
+                {data.contentfulRecipe.serves}
+              </RecipeAttributeText>
+            </RecipeAttribute>
+            <RecipeAttribute>
+              <Clock />{' '}
+              <RecipeAttributeText>
+                {data.contentfulRecipe.cookingTimeMins}
+                mins
+              </RecipeAttributeText>
+            </RecipeAttribute>
+          </RecipeAttributes>
         </RecipeIntro>
         <Ingredients>
-          <h2>Ingredients</h2>
-          <ul>
+          <RecipeTitleSecondary>Ingredients</RecipeTitleSecondary>
+          <IngredientsList>
             {data.contentfulRecipe.ingredients.map((ingredient, index) => (
               <li key={index}>{ingredient}</li>
             ))}
-          </ul>
+          </IngredientsList>
+        </Ingredients>
+        <RecipeSteps>
           {data.contentfulRecipe.preparation ? (
-            <>
-              <h2>Preparation</h2>
+            <Preparation>
+              <RecipeTitleSecondary>Preparation</RecipeTitleSecondary>
               <ol>
                 {data.contentfulRecipe.preparation.map((step, index) => (
-                  <li key={index}>{step}</li>
+                  <RecipeStepsListItem key={index}>{step}</RecipeStepsListItem>
                 ))}
               </ol>
-            </>
+            </Preparation>
           ) : (
             ''
           )}
-        </Ingredients>
-        <Method>
-          <h2>Method</h2>
-          <ol>
-            {data.contentfulRecipe.method.map((step, index) => (
-              <li key={index}>{step}</li>
-            ))}
-          </ol>
-        </Method>
+          <Method>
+            <RecipeTitleSecondary>Method</RecipeTitleSecondary>
+            <ol>
+              {data.contentfulRecipe.method.map((step, index) => (
+                <RecipeStepsListItem key={index}>{step}</RecipeStepsListItem>
+              ))}
+            </ol>
+          </Method>
+        </RecipeSteps>
       </RecipeLayout>
     </Layout>
   );

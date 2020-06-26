@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const HeaderContainer = styled.header`
   background: black;
-  margin-bottom: 1.45rem;
+  margin-bottom: ${props => props.theme.spacing.lg};
 `;
 
 const HeaderInnerContainer = styled.div`

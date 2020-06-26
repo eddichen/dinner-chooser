@@ -1,14 +1,27 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const theme = {
+  fontFamily: {
+    sansSerif:
+      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    serif: 'georgia, serif'
+  },
+  fontSize: {
+    sm: '1.2rem',
+    md: '1.6rem',
+    lg: '2rem',
+    xl: '2.4rem',
+    xxl: '3.2rem'
+  },
   spacing: {
-    sm: '0.5em',
-    md: '1em',
-    lg: '1.5em',
-    xl: '2em'
+    sm: '0.5em', //8px
+    md: '1em', ////16px
+    lg: '1.5em', //24px
+    xl: '2em' /////32px
   },
   breakpoint: {
-    md: '48em'
+    md: '48em',
+    lg: '60em'
   },
   siteWidth: '64em'
 };
@@ -23,6 +36,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 1.6rem;
   }
   article,
   aside,
@@ -201,7 +215,7 @@ export const GlobalStyle = createGlobalStyle`
     font: inherit;
   }
   html {
-    font: 100%/1.25em georgia, serif;
+    font: 62.5%/1.25 georgia, serif;
     box-sizing: border-box;
     overflow-y: scroll;
   }
@@ -349,26 +363,26 @@ export const GlobalStyle = createGlobalStyle`
     margin-bottom: 1.45rem;
   }
   ul {
-    margin-left: 1.45rem;
+    margin-left: 2rem;
     margin-right: 0;
     margin-top: 0;
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
-    margin-bottom: 1.45rem;
+    margin-bottom: 2rem;
     list-style-position: outside;
     list-style-image: none;
   }
   ol {
-    margin-left: 1.45rem;
+    margin-left: 2rem;
     margin-right: 0;
     margin-top: 0;
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
-    margin-bottom: 1.45rem;
+    margin-bottom: 2rem;
     list-style-position: outside;
     list-style-image: none;
   }
