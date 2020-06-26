@@ -39,6 +39,7 @@ const RecipeAttributes = styled.div`
 const RecipeAttribute = styled.p`
   display: flex;
   margin-right: ${props => props.theme.spacing.md};
+  margin-bottom: 0;
 `;
 
 const RecipeAttributeText = styled.span`
@@ -49,8 +50,19 @@ const RecipeAttributeText = styled.span`
 const RecipeIntro = styled.div`
   margin-bottom: ${props => props.theme.spacing.lg};
 
-  @media screen and (min-width: 48em) {
-    grid-column: 1/4;
+  @media screen and (min-width: ${props => props.theme.breakpoint.md}) {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+`;
+
+const RecipeImage = styled.div`
+  margin-bottom: ${props => props.theme.spacing.lg};
+
+  @media screen and (min-width: ${props => props.theme.breakpoint.md}) {
+    grid-column: 3;
+    grid-row: 1;
   }
 `;
 
@@ -102,7 +114,7 @@ const Recipe = ({ data }: Recipe) => {
   return (
     <Layout>
       <RecipeLayout>
-        <RecipeIntro>
+        <RecipeImage>
           {data.contentfulRecipe.image !== null ? (
             <img
               src={data.contentfulRecipe.image.file.url}
@@ -111,6 +123,8 @@ const Recipe = ({ data }: Recipe) => {
           ) : (
             ''
           )}
+        </RecipeImage>
+        <RecipeIntro>
           <RecipeTitle>{data.contentfulRecipe.title}</RecipeTitle>
           <RecipeAttributes>
             <RecipeAttribute>
