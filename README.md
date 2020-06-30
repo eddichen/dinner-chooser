@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b4a9d7ec-776b-42fd-884f-6ee49bb87894/deploy-status)](https://app.netlify.com/sites/vibrant-liskov-5bbd59/deploys)
+
 # Dinner Chooser
 
 Dinner Chooser was created to help with meal planning and providing variety in meals cooked each week.
