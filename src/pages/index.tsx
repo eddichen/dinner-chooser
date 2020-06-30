@@ -39,11 +39,20 @@ interface RecipeList {
 
 const IndexPage = ({ data }: RecipeList) => {
   const [randomRecipe, setRecipe] = useState({});
+  const [previousRecipes, setPreviousRecipe] = useState([]);
 
   const selectRecipe = (recipes: RecipeList) => {
     const recipeCollection = recipes.data.allContentfulRecipe.nodes;
     const selectedRecipe = { node: recipeCollection[Math.floor(Math.random() * recipeCollection.length)] };
-    console.log('selectedRecipe', selectedRecipe);
+    const selectedRecipeId = selectedRecipe.node.id;
+    if (previousRecipes.length >= recipeCollection.length) {
+      console.log('out of recipes');
+      return;
+    }
+    if (previousRecipes.includes(selectedRecipeId)) {
+      return selectRecipe({ data });
+    }
+    setPreviousRecipe(previousRecipes.concat(selectedRecipeId));
     setRecipe(selectedRecipe);
   };
 
