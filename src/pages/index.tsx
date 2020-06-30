@@ -1,8 +1,33 @@
 import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
+import styled from 'styled-components';
 
 import RecipeCard, { RecipePreview } from '../components/recipeCard';
 import Layout from '../components/layout';
+
+const CardListing = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: -${props => props.theme.spacing.md};
+
+  @media screen and (min-width: 60em) {
+    margin-right: -${props => props.theme.spacing.lg};
+  }
+`;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+`;
+
+const Button = styled.button`
+  background-color: ${props => props.theme.color.black};
+  color: ${props => props.theme.color.white};
+  border: none;
+  font-family: ${props => props.theme.fontFamily.sansSerif};
+  font-size: ${props => props.theme.fontSize.lg};
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+`;
 
 interface RecipeList {
   data: {
@@ -15,10 +40,6 @@ interface RecipeList {
 const IndexPage = ({ data }: RecipeList) => {
   const [randomRecipe, setRecipe] = useState({});
 
-  // get the array length
-  // select a random number between 0-array.length
-  // select the recipe in the array
-  // display the recipe on the FE
   const selectRecipe = (recipes: RecipeList) => {
     const recipeCollection = recipes.data.allContentfulRecipe.nodes;
     const selectedRecipe = { node: recipeCollection[Math.floor(Math.random() * recipeCollection.length)] };
@@ -28,15 +49,16 @@ const IndexPage = ({ data }: RecipeList) => {
 
   return (
     <Layout>
-      <h1>Dinner Chooser</h1>
       <Link to="/recipes/">All recipes</Link>
       <p></p>
-      <div>
+      <CardListing>
         {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe.node} /> : null}
-      </div>
-      <button type="button" onClick={() => selectRecipe({ data })}>
-        Pick something for me
-      </button>
+      </CardListing>
+      <ButtonContainer>
+        <Button type="button" onClick={() => selectRecipe({ data })}>
+          Show me what you got!
+        </Button>
+      </ButtonContainer>
     </Layout>
   );
 };

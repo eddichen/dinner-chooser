@@ -13,6 +13,10 @@ export const theme = {
     xl: '2.4rem',
     xxl: '3.2rem'
   },
+  color: {
+    black: '#000',
+    white: '#fff'
+  },
   spacing: {
     sm: '0.5em', //8px
     md: '1em', ////16px
