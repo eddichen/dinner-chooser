@@ -1,8 +1,8 @@
 import React from 'react';
-import RecipeCard, { RecipePreview } from '../components/recipeCard';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
+import RecipeCard, { RecipePreview } from '../components/recipeCard';
 import Layout from '../components/layout';
 
 const CardListing = styled.div`
@@ -38,7 +38,7 @@ const RecipesPage = ({ data }: RecipeList) => {
 export default RecipesPage;
 
 export const query = graphql`
-  query RecipeListQuery {
+  query {
     allContentfulRecipe {
       nodes {
         ...RecipeCardFragment
