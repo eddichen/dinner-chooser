@@ -29,37 +29,60 @@ const Button = styled.button`
   padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
 `;
 
+const PhraseHeader = styled.h2`
+  font-size: ${props => props.theme.fontSize.xxl};
+`;
+
 interface RecipeList {
   data: {
     allContentfulRecipe: {
       nodes: [RecipePreview];
-    };
+    },
+    allContentfulPhrases: {
+      nodes: [{
+        phrase: [string]
+      }]
+    }
   };
 }
 
 const IndexPage = ({ data }: RecipeList) => {
   const [randomRecipe, setRecipe] = useState({});
   const [previousRecipes, setPreviousRecipe] = useState([]);
+  const [randomPhrase, setPhrase] = useState('');
+  const phrases = data.allContentfulPhrases.nodes[0].phrase;
+
+  console.log(data.allContentfulPhrases.nodes[0].phrase, typeof data.allContentfulPhrases.nodes[0].phrase)
 
   const selectRecipe = (recipes: RecipeList) => {
     const recipeCollection = recipes.data.allContentfulRecipe.nodes;
     const selectedRecipe = { node: recipeCollection[Math.floor(Math.random() * recipeCollection.length)] };
     const selectedRecipeId = selectedRecipe.node.id;
     if (previousRecipes.length >= recipeCollection.length) {
-      console.log('out of recipes');
+      setPhrase('No more recipes');
       return;
     }
     if (previousRecipes.includes(selectedRecipeId)) {
       return selectRecipe({ data });
     }
     setPreviousRecipe(previousRecipes.concat(selectedRecipeId));
+    selectPhrase();
     setRecipe(selectedRecipe);
   };
+
+  const selectPhrase = () => {
+    let previousPhrase: string = '';
+    const selectedPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    if (selectedPhrase === previousPhrase) {
+      return selectPhrase();
+    }
+    return setPhrase(selectedPhrase);
+  }
 
   return (
     <Layout>
       <Link to="/recipes/">All recipes</Link>
-      <p></p>
+      {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
       <CardListing>
         {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe.node} /> : null}
       </CardListing>
@@ -79,6 +102,11 @@ export const query = graphql`
     allContentfulRecipe {
       nodes {
         ...RecipeCardFragment
+      }
+    }
+    allContentfulPhrases {
+      nodes {
+        phrase
       }
     }
   }
