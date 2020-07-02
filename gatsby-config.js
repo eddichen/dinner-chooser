@@ -60,9 +60,7 @@ module.exports = {
         // Any invalid keyword or empty string defaults to `anonymous`
         crossOrigin: `use-credentials`
       }
-    }
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    'gatsby-plugin-offline',
+    },
+    'gatsby-plugin-offline'
   ]
 };
