@@ -37,7 +37,12 @@ interface RecipeList {
   data: {
     allContentfulRecipe: {
       nodes: [RecipePreview];
-    };
+    },
+    allContentfulPhrases: {
+      nodes: [{
+        phrase: [string]
+      }]
+    }
   };
 }
 
@@ -45,6 +50,9 @@ const IndexPage = ({ data }: RecipeList) => {
   const [randomRecipe, setRecipe] = useState({});
   const [previousRecipes, setPreviousRecipe] = useState([]);
   const [randomPhrase, setPhrase] = useState('');
+  const phrases = data.allContentfulPhrases.nodes[0].phrase;
+
+  console.log(data.allContentfulPhrases.nodes[0].phrase, typeof data.allContentfulPhrases.nodes[0].phrase)
 
   const selectRecipe = (recipes: RecipeList) => {
     const recipeCollection = recipes.data.allContentfulRecipe.nodes;
@@ -63,14 +71,7 @@ const IndexPage = ({ data }: RecipeList) => {
   };
 
   const selectPhrase = () => {
-    let previousPhrase: string;
-    const phrases = [
-      'I think you\'re in the mood for',
-      'I think you\'re going to love',
-      'When was the last time you had',
-      'Let\'s do this',
-      'Have you got a hankering for some',
-    ];
+    let previousPhrase: string = '';
     const selectedPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     if (selectedPhrase === previousPhrase) {
       return selectPhrase();
@@ -101,6 +102,11 @@ export const query = graphql`
     allContentfulRecipe {
       nodes {
         ...RecipeCardFragment
+      }
+    }
+    allContentfulPhrases {
+      nodes {
+        phrase
       }
     }
   }
