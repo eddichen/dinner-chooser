@@ -52,8 +52,6 @@ const IndexPage = ({ data }: RecipeList) => {
   const [randomPhrase, setPhrase] = useState('');
   const phrases = data.allContentfulPhrases.nodes[0].phrase;
 
-  console.log(data.allContentfulPhrases.nodes[0].phrase, typeof data.allContentfulPhrases.nodes[0].phrase)
-
   const selectRecipe = (recipes: RecipeList) => {
     const recipeCollection = recipes.data.allContentfulRecipe.nodes;
     const selectedRecipe = { node: recipeCollection[Math.floor(Math.random() * recipeCollection.length)] };

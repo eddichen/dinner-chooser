@@ -40,7 +40,27 @@ module.exports = {
       }
     },
     'gatsby-plugin-typescript',
-    'gatsby-plugin-styled-components'
+    'gatsby-plugin-styled-components',
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: 'Dinner Chooser',
+        short_name: 'Dinner Chooser',
+        description:
+          'Helping you with meal planning and providing variety in meals cooked each week.',
+        start_url: '/',
+        background_color: '#6b37bf',
+        theme_color: '#6b37bf',
+        // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
+        // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
+        display: 'standalone',
+        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        // An optional attribute which provides support for CORS check.
+        // If you do not provide a crossOrigin option, it will skip CORS for manifest.
+        // Any invalid keyword or empty string defaults to `anonymous`
+        crossOrigin: `use-credentials`
+      }
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
