@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { Clock, Users } from 'react-feather';
@@ -15,6 +16,7 @@ interface Recipe {
         };
       };
       title: string;
+      description: string;
       cookingTimeMins: number;
       ingredients: [string];
       preparation: [string];
@@ -112,68 +114,75 @@ const Method = styled.div`
 
 const Recipe = ({ data }: Recipe) => {
   return (
-    <Layout>
-      <RecipeLayout>
-        <RecipeImage>
-          {data.contentfulRecipe.image !== null ? (
-            <img
-              src={data.contentfulRecipe.image.file.url}
-              alt={data.contentfulRecipe.image.description}
-            />
-          ) : (
-            ''
-          )}
-        </RecipeImage>
-        <RecipeIntro>
-          <RecipeTitle>{data.contentfulRecipe.title}</RecipeTitle>
-          <RecipeAttributes>
-            <RecipeAttribute>
-              <Users />{' '}
-              <RecipeAttributeText>
-                {data.contentfulRecipe.serves}
-              </RecipeAttributeText>
-            </RecipeAttribute>
-            <RecipeAttribute>
-              <Clock />{' '}
-              <RecipeAttributeText>
-                {data.contentfulRecipe.cookingTimeMins}
-                mins
-              </RecipeAttributeText>
-            </RecipeAttribute>
-          </RecipeAttributes>
-        </RecipeIntro>
-        <Ingredients>
-          <RecipeTitleSecondary>Ingredients</RecipeTitleSecondary>
-          <IngredientsList>
-            {data.contentfulRecipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </IngredientsList>
-        </Ingredients>
-        <RecipeSteps>
-          {data.contentfulRecipe.preparation ? (
-            <Preparation>
-              <RecipeTitleSecondary>Preparation</RecipeTitleSecondary>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Dinner Chooser - ${data.contentfulRecipe.title}`}</title>
+        <meta name='description' content={data.contentfulRecipe.description} />
+      </Helmet>
+      <Layout>
+        <RecipeLayout>
+          <RecipeImage>
+            {data.contentfulRecipe.image !== null ? (
+              <img
+                src={data.contentfulRecipe.image.file.url}
+                alt={data.contentfulRecipe.image.description}
+              />
+            ) : (
+                ''
+              )}
+          </RecipeImage>
+          <RecipeIntro>
+            <RecipeTitle>{data.contentfulRecipe.title}</RecipeTitle>
+            <RecipeAttributes>
+              <RecipeAttribute>
+                <Users />{' '}
+                <RecipeAttributeText>
+                  {data.contentfulRecipe.serves}
+                </RecipeAttributeText>
+              </RecipeAttribute>
+              <RecipeAttribute>
+                <Clock />{' '}
+                <RecipeAttributeText>
+                  {data.contentfulRecipe.cookingTimeMins}
+                  mins
+                </RecipeAttributeText>
+              </RecipeAttribute>
+            </RecipeAttributes>
+          </RecipeIntro>
+          <Ingredients>
+            <RecipeTitleSecondary>Ingredients</RecipeTitleSecondary>
+            <IngredientsList>
+              {data.contentfulRecipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </IngredientsList>
+          </Ingredients>
+          <RecipeSteps>
+            {data.contentfulRecipe.preparation ? (
+              <Preparation>
+                <RecipeTitleSecondary>Preparation</RecipeTitleSecondary>
+                <ol>
+                  {data.contentfulRecipe.preparation.map((step, index) => (
+                    <RecipeStepsListItem key={index}>{step}</RecipeStepsListItem>
+                  ))}
+                </ol>
+              </Preparation>
+            ) : (
+                ''
+              )}
+            <Method>
+              <RecipeTitleSecondary>Method</RecipeTitleSecondary>
               <ol>
-                {data.contentfulRecipe.preparation.map((step, index) => (
+                {data.contentfulRecipe.method.map((step, index) => (
                   <RecipeStepsListItem key={index}>{step}</RecipeStepsListItem>
                 ))}
               </ol>
-            </Preparation>
-          ) : (
-            ''
-          )}
-          <Method>
-            <RecipeTitleSecondary>Method</RecipeTitleSecondary>
-            <ol>
-              {data.contentfulRecipe.method.map((step, index) => (
-                <RecipeStepsListItem key={index}>{step}</RecipeStepsListItem>
-              ))}
-            </ol>
-          </Method>
-        </RecipeSteps>
-      </RecipeLayout>
-    </Layout>
+            </Method>
+          </RecipeSteps>
+        </RecipeLayout>
+      </Layout>
+    </>
   );
 };
 
@@ -189,6 +198,7 @@ export const query = graphql`
         }
       }
       title
+      description
       cookingTimeMins
       ingredients
       preparation

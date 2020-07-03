@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
@@ -78,18 +79,24 @@ const IndexPage = ({ data }: RecipeList) => {
   }
 
   return (
-    <Layout>
-      <Link to="/recipes/">All recipes</Link>
-      {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
-      <CardListing>
-        {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe.node} /> : null}
-      </CardListing>
-      <ButtonContainer>
-        <Button type="button" onClick={() => selectRecipe({ data })}>
-          Show me what you got!
-        </Button>
-      </ButtonContainer>
-    </Layout>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Dinner Chooser</title>
+      </Helmet>
+      <Layout>
+        <Link to="/recipes/">All recipes</Link>
+        {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
+        <CardListing>
+          {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe.node} /> : null}
+        </CardListing>
+        <ButtonContainer>
+          <Button type="button" onClick={() => selectRecipe({ data })}>
+            Show me what you got!
+          </Button>
+        </ButtonContainer>
+      </Layout>
+    </>
   );
 };
 
