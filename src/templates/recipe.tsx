@@ -113,7 +113,7 @@ const Method = styled.div`
   margin-bottom: ${props => props.theme.spacing.lg};
 `;
 
-const Recipe = ({ data }: Recipe) => {
+const Recipe = ({ data, location }) => {
   const { siteURL } = useSiteMetadata();
 
   const shareButton = () => {
@@ -201,14 +201,13 @@ const Recipe = ({ data }: Recipe) => {
             </Method>
           </RecipeSteps>
           <div>
-            {navigator.share !== undefined ? <button onClick={shareButton}>Share</button> : (
+            {typeof window !== 'undefined' && navigator.share !== 'undefined' ? <button onClick={() => shareButton}>Share</button> : (
               <>
                 <a href='https://twitter.com/share'>Twitter</a>{' '}
                 <a href='https://www.facebook.com/sharer/sharer.php'>Facebook</a>
               </>
             )}
           </div>
-          {console.log(location.pathname)}
         </RecipeLayout>
       </Layout>
     </>
