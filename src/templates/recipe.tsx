@@ -201,7 +201,7 @@ const Recipe = ({ data, location }) => {
             </Method>
           </RecipeSteps>
           <div>
-            {typeof window !== 'undefined' && navigator.share !== undefined ? <button onClick={() => shareButton}>Share</button> : (
+            {typeof window !== 'undefined' && navigator.share !== undefined ? <button onClick={() => shareButton()}>Share</button> : (
               <>
                 <a href='https://twitter.com/share'>Twitter</a>{' '}
                 <a href='https://www.facebook.com/sharer/sharer.php'>Facebook</a>
