@@ -119,6 +119,10 @@ const Recipe = ({ data }: Recipe) => {
         <meta charSet="utf-8" />
         <title>{`Dinner Chooser - ${data.contentfulRecipe.title}`}</title>
         <meta name='description' content={data.contentfulRecipe.description} />
+        <meta property='og:type' content='website' />
+        <meta property='og:title' content={`Dinner Chooser - ${data.contentfulRecipe.title}`} />
+        <meta property='og:description' content={data.contentfulRecipe.description !== null ? data.contentfulRecipe.description : ''} />
+        <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
       </Helmet>
       <Layout>
         <RecipeLayout itemscope itemType="https://schema.org/Recipe">
