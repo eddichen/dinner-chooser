@@ -125,29 +125,29 @@ const Recipe = ({ data }: Recipe) => {
         <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
       </Helmet>
       <Layout>
-        <RecipeLayout itemscope itemType="https://schema.org/Recipe">
+        <RecipeLayout itemScope itemType="https://schema.org/Recipe">
           <RecipeImage>
             {data.contentfulRecipe.image !== null ? (
               <img
                 src={data.contentfulRecipe.image.file.url}
                 alt={data.contentfulRecipe.image.description}
-                itemprop="image"
+                itemProp="image"
               />
             ) : (
                 ''
               )}
           </RecipeImage>
           <RecipeIntro>
-            <RecipeTitle itemprop="name">{data.contentfulRecipe.title}</RecipeTitle>
-            {data.contentfulRecipe.description !== '' ? <p itemprop="description">{data.contentfulRecipe.description}</p> : ''}
+            <RecipeTitle itemProp="name">{data.contentfulRecipe.title}</RecipeTitle>
+            {data.contentfulRecipe.description !== '' ? <p itemProp="description">{data.contentfulRecipe.description}</p> : ''}
             <RecipeAttributes>
-              <RecipeAttribute itemprop="recipeYield">
+              <RecipeAttribute itemProp="recipeYield">
                 <Users />{' '}
                 <RecipeAttributeText>
                   {data.contentfulRecipe.serves}
                 </RecipeAttributeText>
               </RecipeAttribute>
-              <RecipeAttribute itemprop="cookTime">
+              <RecipeAttribute itemProp="cookTime">
                 <Clock />{' '}
                 <RecipeAttributeText>
                   {data.contentfulRecipe.cookingTimeMins}
@@ -160,7 +160,7 @@ const Recipe = ({ data }: Recipe) => {
             <RecipeTitleSecondary>Ingredients</RecipeTitleSecondary>
             <IngredientsList>
               {data.contentfulRecipe.ingredients.map((ingredient, index) => (
-                <li key={index} itemprop="recipeIngredient">{ingredient}</li>
+                <li key={index} itemProp="recipeIngredient">{ingredient}</li>
               ))}
             </IngredientsList>
           </Ingredients>
@@ -170,7 +170,7 @@ const Recipe = ({ data }: Recipe) => {
                 <RecipeTitleSecondary>Preparation</RecipeTitleSecondary>
                 <ol>
                   {data.contentfulRecipe.preparation.map((step, index) => (
-                    <RecipeStepsListItem key={index} itemprop="recipeInstructions">{step}</RecipeStepsListItem>
+                    <RecipeStepsListItem key={index} itemProp="recipeInstructions">{step}</RecipeStepsListItem>
                   ))}
                 </ol>
               </Preparation>
@@ -181,7 +181,7 @@ const Recipe = ({ data }: Recipe) => {
               <RecipeTitleSecondary>Method</RecipeTitleSecondary>
               <ol>
                 {data.contentfulRecipe.method.map((step, index) => (
-                  <RecipeStepsListItem key={index} itemprop="recipeInstructions">{step}</RecipeStepsListItem>
+                  <RecipeStepsListItem key={index} itemProp="recipeInstructions">{step}</RecipeStepsListItem>
                 ))}
               </ol>
             </Method>
