@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Clock, Users } from 'react-feather';
 
 import Layout from '../components/layout';
+import useSiteMetadata from '../hooks/use-site-metadata';
+import ShareRecipe from '../components/shareRecipe/shareRecipe';
 
 interface Recipe {
   data: {
@@ -112,38 +114,48 @@ const Method = styled.div`
   margin-bottom: ${props => props.theme.spacing.lg};
 `;
 
-const Recipe = ({ data }: Recipe) => {
+const Recipe = ({ data, location }) => {
+  const { siteURL } = useSiteMetadata();
+  const pageTitle = `Dinner Chooser - ${data.contentfulRecipe.title}`;
+
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Dinner Chooser - ${data.contentfulRecipe.title}`}</title>
+        <title>{pageTitle}</title>
         <meta name='description' content={data.contentfulRecipe.description} />
+        <meta property='og:type' content='website' />
+        <meta property='og:title' content={pageTitle} />
+        <meta property='og:description' content={data.contentfulRecipe.description !== null ? data.contentfulRecipe.description : ''} />
+        <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
+        <meta name="twitter:card" content='summary' />
+        <meta name="twitter:creator" content='@eddichen' />
+        <link rel="canonical" href={`${siteURL}${location.pathname}`} />
       </Helmet>
       <Layout>
-        <RecipeLayout itemscope itemType="https://schema.org/Recipe">
+        <RecipeLayout itemScope itemType="https://schema.org/Recipe">
           <RecipeImage>
             {data.contentfulRecipe.image !== null ? (
               <img
                 src={data.contentfulRecipe.image.file.url}
                 alt={data.contentfulRecipe.image.description}
-                itemprop="image"
+                itemProp="image"
               />
             ) : (
                 ''
               )}
           </RecipeImage>
           <RecipeIntro>
-            <RecipeTitle itemprop="name">{data.contentfulRecipe.title}</RecipeTitle>
-            {data.contentfulRecipe.description !== '' ? <p itemprop="description">{data.contentfulRecipe.description}</p> : ''}
+            <RecipeTitle itemProp="name">{data.contentfulRecipe.title}</RecipeTitle>
+            {data.contentfulRecipe.description !== '' ? <p itemProp="description">{data.contentfulRecipe.description}</p> : ''}
             <RecipeAttributes>
-              <RecipeAttribute itemprop="recipeYield">
+              <RecipeAttribute itemProp="recipeYield">
                 <Users />{' '}
                 <RecipeAttributeText>
                   {data.contentfulRecipe.serves}
                 </RecipeAttributeText>
               </RecipeAttribute>
-              <RecipeAttribute itemprop="cookTime">
+              <RecipeAttribute itemProp="cookTime">
                 <Clock />{' '}
                 <RecipeAttributeText>
                   {data.contentfulRecipe.cookingTimeMins}
@@ -156,7 +168,7 @@ const Recipe = ({ data }: Recipe) => {
             <RecipeTitleSecondary>Ingredients</RecipeTitleSecondary>
             <IngredientsList>
               {data.contentfulRecipe.ingredients.map((ingredient, index) => (
-                <li key={index} itemprop="recipeIngredient">{ingredient}</li>
+                <li key={index} itemProp="recipeIngredient">{ingredient}</li>
               ))}
             </IngredientsList>
           </Ingredients>
@@ -166,7 +178,7 @@ const Recipe = ({ data }: Recipe) => {
                 <RecipeTitleSecondary>Preparation</RecipeTitleSecondary>
                 <ol>
                   {data.contentfulRecipe.preparation.map((step, index) => (
-                    <RecipeStepsListItem key={index} itemprop="recipeInstructions">{step}</RecipeStepsListItem>
+                    <RecipeStepsListItem key={index} itemProp="recipeInstructions">{step}</RecipeStepsListItem>
                   ))}
                 </ol>
               </Preparation>
@@ -177,11 +189,12 @@ const Recipe = ({ data }: Recipe) => {
               <RecipeTitleSecondary>Method</RecipeTitleSecondary>
               <ol>
                 {data.contentfulRecipe.method.map((step, index) => (
-                  <RecipeStepsListItem key={index} itemprop="recipeInstructions">{step}</RecipeStepsListItem>
+                  <RecipeStepsListItem key={index} itemProp="recipeInstructions">{step}</RecipeStepsListItem>
                 ))}
               </ol>
             </Method>
           </RecipeSteps>
+          <ShareRecipe title={pageTitle} location={location} />
         </RecipeLayout>
       </Layout>
     </>

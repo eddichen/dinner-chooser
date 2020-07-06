@@ -6,7 +6,8 @@ module.exports = {
   siteMetadata: {
     title: 'Dinner Chooser',
     description: '',
-    author: 'Eddi Chen'
+    author: 'Eddi Chen',
+    siteURL: 'https://vibrant-liskov-5bbd59.netlify.app'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
