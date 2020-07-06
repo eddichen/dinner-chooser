@@ -6,6 +6,7 @@ import { Clock, Users } from 'react-feather';
 
 import Layout from '../components/layout';
 import useSiteMetadata from '../hooks/use-site-metadata';
+import ShareRecipe from '../components/shareRecipe/shareRecipe';
 
 interface Recipe {
   data: {
@@ -115,25 +116,16 @@ const Method = styled.div`
 
 const Recipe = ({ data, location }) => {
   const { siteURL } = useSiteMetadata();
-
-  const shareButton = () => {
-    console.log('share');
-    navigator.share({
-      title: `Dinner Chooser - ${data.contentfulRecipe.title}`,
-      url: `${siteURL}${location.pathname}`
-    }).then(() => {
-      console.log('shared')
-    }).catch(console.error);
-  };
+  const pageTitle = `Dinner Chooser - ${data.contentfulRecipe.title}`;
 
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`Dinner Chooser - ${data.contentfulRecipe.title}`}</title>
+        <title>{pageTitle}</title>
         <meta name='description' content={data.contentfulRecipe.description} />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content={`Dinner Chooser - ${data.contentfulRecipe.title}`} />
+        <meta property='og:title' content={pageTitle} />
         <meta property='og:description' content={data.contentfulRecipe.description !== null ? data.contentfulRecipe.description : ''} />
         <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
         <link rel="canonical" href={`${siteURL}${location.pathname}`} />
@@ -200,14 +192,7 @@ const Recipe = ({ data, location }) => {
               </ol>
             </Method>
           </RecipeSteps>
-          <div>
-            {typeof window !== 'undefined' && navigator.share !== undefined ? <button onClick={() => shareButton()}>Share</button> : (
-              <>
-                <a href='https://twitter.com/share'>Twitter</a>{' '}
-                <a href='https://www.facebook.com/sharer/sharer.php'>Facebook</a>
-              </>
-            )}
-          </div>
+          <ShareRecipe title={pageTitle} location={location} />
         </RecipeLayout>
       </Layout>
     </>
