@@ -30,7 +30,7 @@ const ShareRecipe = ({ location, title }) => {
               Share to:
             </ShareListItem>
             <ShareListItem>
-              <ShareListLink href='https://twitter.com/share'><Twitter /></ShareListLink>
+              <ShareListLink href={`https://twitter.com/intent/tweet?text=${title}`}><Twitter /></ShareListLink>
             </ShareListItem>
             <ShareListItem>
               <ShareListLink href='https://www.facebook.com/sharer/sharer.php'><Facebook /></ShareListLink>
