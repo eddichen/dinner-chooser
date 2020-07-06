@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Clock, Users } from 'react-feather';
 
 import Layout from '../components/layout';
+import useSiteMetadata from '../hooks/use-site-metadata';
 
 interface Recipe {
   data: {
@@ -113,6 +114,18 @@ const Method = styled.div`
 `;
 
 const Recipe = ({ data }: Recipe) => {
+  const { siteURL } = useSiteMetadata();
+
+  const shareButton = () => {
+    console.log('share');
+    navigator.share({
+      title: `Dinner Chooser - ${data.contentfulRecipe.title}`,
+      url: `${siteURL}${location.pathname}`
+    }).then(() => {
+      console.log('shared')
+    }).catch(console.error);
+  };
+
   return (
     <>
       <Helmet>
@@ -123,6 +136,7 @@ const Recipe = ({ data }: Recipe) => {
         <meta property='og:title' content={`Dinner Chooser - ${data.contentfulRecipe.title}`} />
         <meta property='og:description' content={data.contentfulRecipe.description !== null ? data.contentfulRecipe.description : ''} />
         <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
+        <link rel="canonical" href={`${siteURL}${location.pathname}`} />
       </Helmet>
       <Layout>
         <RecipeLayout itemScope itemType="https://schema.org/Recipe">
@@ -186,6 +200,15 @@ const Recipe = ({ data }: Recipe) => {
               </ol>
             </Method>
           </RecipeSteps>
+          <div>
+            {navigator.share !== undefined ? <button onClick={shareButton}>Share</button> : (
+              <>
+                <a href='https://twitter.com/share'>Twitter</a>{' '}
+                <a href='https://www.facebook.com/sharer/sharer.php'>Facebook</a>
+              </>
+            )}
+          </div>
+          {console.log(location.pathname)}
         </RecipeLayout>
       </Layout>
     </>

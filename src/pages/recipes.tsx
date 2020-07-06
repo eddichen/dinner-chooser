@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
-import RecipeCard, { RecipePreview } from '../components/recipeCard';
 import Layout from '../components/layout';
+import RecipeCard, { RecipePreview } from '../components/recipeCard';
 
 const CardListing = styled.div`
   display: flex;
