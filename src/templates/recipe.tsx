@@ -128,6 +128,8 @@ const Recipe = ({ data, location }) => {
         <meta property='og:title' content={pageTitle} />
         <meta property='og:description' content={data.contentfulRecipe.description !== null ? data.contentfulRecipe.description : ''} />
         <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
+        <meta name="twitter:card" content='summary' />
+        <meta name="twitter:creator" content='@eddichen' />
         <link rel="canonical" href={`${siteURL}${location.pathname}`} />
       </Helmet>
       <Layout>
