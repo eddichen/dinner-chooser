@@ -2,20 +2,6 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 
-export interface RecipePreview {
-  node: {
-    id: string;
-    title: string;
-    url: string;
-    image: {
-      description: string;
-      file: {
-        url: string;
-      };
-    };
-  };
-}
-
 const Card = styled.div`
   flex: 0 1 calc(50% - ${props => props.theme.spacing.md});
   margin: 0 ${props => props.theme.spacing.md}
@@ -41,15 +27,29 @@ const CardTitle = styled.h2`
   }
 `;
 
-export default function RecipeCard({ node }: RecipePreview) {
+export interface RecipePreview {
+  node: {
+    id: string;
+    title: string;
+    url: string;
+    image: {
+      description: string;
+      file: {
+        url: string;
+      };
+    };
+  };
+}
+
+const RecipeCard = ({ node }: RecipePreview) => {
   return (
     <Card key={node.id}>
       <CardLink to={`/recipe/${node.url}/`}>
         {node.image !== null ? (
           <img src={node.image.file.url} alt={node.image.description} />
         ) : (
-          ''
-        )}
+            ''
+          )}
         <CardTitle>{node.title}</CardTitle>
       </CardLink>
     </Card>
@@ -69,3 +69,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default RecipeCard;
