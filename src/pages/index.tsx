@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
-import RecipeCard from '../components/recipeCard';
+import RecipeCard, { RecipePreview } from '../components/recipeCard';
 import Layout from '../components/layout';
 
 const CardListing = styled.div`
@@ -37,7 +37,7 @@ const PhraseHeader = styled.h2`
 interface PageQuery {
   data: {
     allContentfulRecipe: {
-      nodes: RecipePreview[];
+      nodes: Recipe[];
     },
     allContentfulPhrases: {
       nodes: [{
@@ -47,7 +47,7 @@ interface PageQuery {
   }
 }
 
-interface RecipePreview {
+interface Recipe {
   id: string;
   title: string;
   url: string;
@@ -60,18 +60,27 @@ interface RecipePreview {
 }
 
 const IndexPage = ({ data }: PageQuery) => {
-  const [randomRecipe, setRecipe] = useState({});
-  const [previousRecipes, setPreviousRecipe] = useState([]);
+  /* refactor this hook so that an empty object can be used for the inital value and satisfy typescript */
+  const [randomRecipe, setRecipe] = useState<Recipe>({
+    id: '',
+    title: '',
+    url: '',
+    image: {
+      description: '',
+      file: {
+        url: ''
+      }
+    }
+  });
+  const [previousRecipes, setPreviousRecipe] = useState(['']);
   const [randomPhrase, setPhrase] = useState('');
   const phrases: string[] = data.allContentfulPhrases.nodes[0].phrase;
 
-  const selectRecipe = (recipes: RecipePreview[]) => {
-    const selectedRecipe: RecipePreview = recipes[Math.floor(Math.random() * recipes.length)];
-    const selectedRecipeId = selectedRecipe.id;
+  const selectRecipe = (recipes: Recipe[]): void => {
+    if (endOfRecipes(previousRecipes.length, recipes.length)) return;
 
-    if (previousRecipes.length >= data.allContentfulRecipe.nodes.length) {
-      return;
-    }
+    const selectedRecipe: Recipe = recipes[Math.floor(Math.random() * recipes.length)];
+    const selectedRecipeId = selectedRecipe.id;
 
     if (previousRecipes.includes(selectedRecipeId)) {
       return selectRecipe(recipes);
@@ -81,16 +90,18 @@ const IndexPage = ({ data }: PageQuery) => {
     return setRecipe(selectedRecipe);
   };
 
-  const selectPhrase = () => {
-    if (previousRecipes.length >= data.allContentfulRecipe.nodes.length) {
-      return setPhrase('No more recipes');
-    }
+  const selectPhrase = (): void => {
+    if (endOfRecipes(previousRecipes.length, data.allContentfulRecipe.nodes.length)) return setPhrase('No more recipes');
 
     const selectedPhrase: string = phrases[Math.floor(Math.random() * phrases.length)];
     if (selectedPhrase === randomPhrase) {
       return selectPhrase();
     }
     return setPhrase(selectedPhrase);
+  }
+
+  const endOfRecipes = (numRecipesdisplayed: number, totalNumRecipes: number): boolean => {
+    return numRecipesdisplayed > totalNumRecipes;
   }
 
   const displayRecipe = () => {
