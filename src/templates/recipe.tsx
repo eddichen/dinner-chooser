@@ -81,15 +81,15 @@ const Recipe = ({ data, location }: RecipeInfo) => {
             <RecipeTitle itemProp="name">{data.contentfulRecipe.title}</RecipeTitle>
             {data.contentfulRecipe.description !== '' ? <p itemProp="description">{data.contentfulRecipe.description}</p> : ''}
             <RecipeAttributes>
-              <RecipeAttribute itemProp="recipeYield">
+              <RecipeAttribute>
                 <Users />{' '}
-                <RecipeAttributeText>
+                <RecipeAttributeText itemProp="recipeYield">
                   {data.contentfulRecipe.serves}
                 </RecipeAttributeText>
               </RecipeAttribute>
-              <RecipeAttribute itemProp="cookTime">
+              <RecipeAttribute>
                 <Clock />{' '}
-                <RecipeAttributeText>
+                <RecipeAttributeText itemProp="cookTime" content={`PT${data.contentfulRecipe.cookingTimeMins}M`}>
                   {data.contentfulRecipe.cookingTimeMins}
                   mins
                 </RecipeAttributeText>
