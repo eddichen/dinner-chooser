@@ -1,11 +1,6 @@
 import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-
-interface HeaderProps {
-  siteTitle: string;
-}
 
 const HeaderContainer = styled.header`
   background: black;
@@ -27,6 +22,10 @@ const HeaderTitleLink = styled(Link)`
   text-decoration: none;
 `;
 
+interface HeaderProps {
+  siteTitle: string;
+}
+
 const Header = ({ siteTitle }: HeaderProps) => (
   <HeaderContainer>
     <HeaderInnerContainer>
@@ -36,13 +35,5 @@ const Header = ({ siteTitle }: HeaderProps) => (
     </HeaderInnerContainer>
   </HeaderContainer>
 );
-
-Header.propTypes = {
-  siteTitle: PropTypes.string
-};
-
-Header.defaultProps = {
-  siteTitle: ''
-};
 
 export default Header;
