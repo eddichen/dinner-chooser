@@ -10,7 +10,7 @@ import {
   ShareButtonText
 } from './shareRecipeStyles';
 
-type RecipeInfo = {
+interface RecipeInfo {
   location: Location,
   title: string
 };
