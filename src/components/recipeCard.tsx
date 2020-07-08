@@ -36,9 +36,9 @@ export interface RecipePreview {
       description: string;
       file: {
         url: string;
-      };
-    };
-  };
+      }
+    }
+  }
 }
 
 const RecipeCard = ({ node }: RecipePreview) => {

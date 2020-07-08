@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
-import RecipeCard, { RecipePreview } from '../components/recipeCard';
+import RecipeCard from '../components/recipeCard';
 import Layout from '../components/layout';
 
 const CardListing = styled.div`
@@ -34,48 +34,68 @@ const PhraseHeader = styled.h2`
   font-size: ${props => props.theme.fontSize.xxl};
 `;
 
-interface RecipeList {
+interface PageQuery {
   data: {
     allContentfulRecipe: {
-      nodes: [RecipePreview];
+      nodes: RecipePreview[];
     },
     allContentfulPhrases: {
       nodes: [{
         phrase: [string]
       }]
     }
-  };
+  }
 }
 
-const IndexPage = ({ data }: RecipeList) => {
+interface RecipePreview {
+  id: string;
+  title: string;
+  url: string;
+  image: {
+    description: string;
+    file: {
+      url: string;
+    }
+  }
+}
+
+const IndexPage = ({ data }: PageQuery) => {
   const [randomRecipe, setRecipe] = useState({});
   const [previousRecipes, setPreviousRecipe] = useState([]);
   const [randomPhrase, setPhrase] = useState('');
-  const phrases = data.allContentfulPhrases.nodes[0].phrase;
+  const phrases: string[] = data.allContentfulPhrases.nodes[0].phrase;
 
-  const selectRecipe = (recipes: RecipeList) => {
-    const recipeCollection = recipes.data.allContentfulRecipe.nodes;
-    const selectedRecipe = { node: recipeCollection[Math.floor(Math.random() * recipeCollection.length)] };
-    const selectedRecipeId = selectedRecipe.node.id;
-    if (previousRecipes.length >= recipeCollection.length) {
-      setPhrase('No more recipes');
+  const selectRecipe = (recipes: RecipePreview[]) => {
+    const selectedRecipe: RecipePreview = recipes[Math.floor(Math.random() * recipes.length)];
+    const selectedRecipeId = selectedRecipe.id;
+
+    if (previousRecipes.length >= data.allContentfulRecipe.nodes.length) {
       return;
     }
+
     if (previousRecipes.includes(selectedRecipeId)) {
-      return selectRecipe({ data });
+      return selectRecipe(recipes);
     }
+
     setPreviousRecipe(previousRecipes.concat(selectedRecipeId));
-    selectPhrase();
-    setRecipe(selectedRecipe);
+    return setRecipe(selectedRecipe);
   };
 
   const selectPhrase = () => {
-    let previousPhrase: string = '';
-    const selectedPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-    if (selectedPhrase === previousPhrase) {
+    if (previousRecipes.length >= data.allContentfulRecipe.nodes.length) {
+      return setPhrase('No more recipes');
+    }
+
+    const selectedPhrase: string = phrases[Math.floor(Math.random() * phrases.length)];
+    if (selectedPhrase === randomPhrase) {
       return selectPhrase();
     }
     return setPhrase(selectedPhrase);
+  }
+
+  const displayRecipe = () => {
+    selectRecipe(data.allContentfulRecipe.nodes);
+    selectPhrase();
   }
 
   return (
@@ -88,10 +108,10 @@ const IndexPage = ({ data }: RecipeList) => {
         <Link to="/recipes/">All recipes</Link>
         {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
         <CardListing>
-          {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe.node} /> : null}
+          {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe} /> : null}
         </CardListing>
         <ButtonContainer>
-          <Button type="button" onClick={() => selectRecipe({ data })}>
+          <Button type="button" onClick={() => displayRecipe()}>
             Show me what you got!
           </Button>
         </ButtonContainer>
