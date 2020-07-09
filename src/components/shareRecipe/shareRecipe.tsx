@@ -10,12 +10,17 @@ import {
   ShareButtonText
 } from './shareRecipeStyles';
 
-const ShareRecipe = ({ location, title }) => {
+interface RecipeInfo {
+  location: Location,
+  title: string
+};
+
+const ShareRecipe = ({ location, title }: RecipeInfo) => {
   const { siteURL } = useSiteMetadata();
 
   const shareButton = () => {
     navigator.share({
-      title: { title },
+      title: title,
       url: `${siteURL}${location.pathname}`
     }).then(() => {
       console.log('shared');
