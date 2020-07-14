@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
-import RecipeCard, { RecipePreview } from '../components/recipeCard';
+import MetaContent from '../components/metaContent/metaContent';
+import RecipeCard from '../components/recipeCard';
 import Layout from '../components/layout';
 
 const CardListing = styled.div`
@@ -111,10 +112,10 @@ const IndexPage = ({ data }: PageQuery) => {
 
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Dinner Chooser</title>
-      </Helmet>
+      <MetaContent
+        location={location}
+        title={`Dinner Chooser`}
+      />
       <Layout>
         <Link to="/recipes/">All recipes</Link>
         {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}

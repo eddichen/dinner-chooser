@@ -1,10 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import { Clock, Users } from 'react-feather';
 
 import Layout from '../components/layout';
-import useSiteMetadata from '../hooks/use-site-metadata';
+import MetaContent from '../components/metaContent/metaContent';
 import ShareRecipe from '../components/shareRecipe/shareRecipe';
 import {
   RecipeLayout,
@@ -43,27 +42,18 @@ interface Recipe {
 
 interface RecipeInfo {
   data: Recipe;
-  location: Location;
 }
 
-const Recipe = ({ data, location }: RecipeInfo) => {
-  const { siteURL } = useSiteMetadata();
-  const pageTitle = `Dinner Chooser - ${data.contentfulRecipe.title}`;
+const Recipe = ({ data }: RecipeInfo) => {
 
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{pageTitle}</title>
-        <meta name='description' content={data.contentfulRecipe.description} />
-        <meta property='og:type' content='website' />
-        <meta property='og:title' content={pageTitle} />
-        <meta property='og:description' content={data.contentfulRecipe.description !== null ? data.contentfulRecipe.description : ''} />
-        <meta property='og:image' content={data.contentfulRecipe.image !== null ? data.contentfulRecipe.image.file.url : ''} />
-        <meta name="twitter:card" content='summary' />
-        <meta name="twitter:creator" content='@eddichen' />
-        <link rel="canonical" href={`${siteURL}${location.pathname}`} />
-      </Helmet>
+      <MetaContent
+        location={location}
+        title={`Dinner Chooser - ${data.contentfulRecipe.title}`}
+        description={data.contentfulRecipe.description}
+        image={data.contentfulRecipe.image.file.url}
+      />
       <Layout>
         <RecipeLayout itemScope itemType="https://schema.org/Recipe">
           <RecipeImage>
@@ -126,7 +116,7 @@ const Recipe = ({ data, location }: RecipeInfo) => {
               </ol>
             </Method>
           </RecipeSteps>
-          <ShareRecipe title={pageTitle} location={location} />
+          <ShareRecipe title={data.contentfulRecipe.title} location={location} />
         </RecipeLayout>
       </Layout>
     </>
