@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
 import MetaContent from '../components/metaContent/metaContent';
 import RecipeCard from '../components/recipeCard';
 import Layout from '../components/layout';
+import Button from '../components/button/button';
 
 const CardListing = styled.div`
   display: flex;
@@ -20,15 +20,6 @@ const CardListing = styled.div`
 
 const ButtonContainer = styled.div`
   text-align: center;
-`;
-
-const Button = styled.button`
-  background-color: ${props => props.theme.color.black};
-  color: ${props => props.theme.color.white};
-  border: none;
-  font-family: ${props => props.theme.fontFamily.sansSerif};
-  font-size: ${props => props.theme.fontSize.lg};
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
 `;
 
 const PhraseHeader = styled.h2`

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 
+import RecipeImage from '../components/recipeImage/recipeImage';
+
 const Card = styled.div`
   flex: 0 1 calc(50% - ${props => props.theme.spacing.md});
   margin: 0 ${props => props.theme.spacing.md}
@@ -24,10 +26,11 @@ const CardTitle = styled.h2`
 
   @media screen and (min-width: ${props => props.theme.breakpoint.lg}) {
     font-size: ${props => props.theme.fontSize.lg};
+    margin-top: ${props => props.theme.spacing.sm};
   }
 `;
 
-export interface RecipePreview {
+interface RecipeCard {
   node: {
     id: string;
     title: string;
@@ -41,12 +44,12 @@ export interface RecipePreview {
   }
 }
 
-const RecipeCard = ({ node }: RecipePreview) => {
+const RecipeCard = ({ node }: RecipeCard) => {
   return (
     <Card key={node.id}>
       <CardLink to={`/recipe/${node.url}/`}>
         {node.image !== null ? (
-          <img src={node.image.file.url} alt={node.image.description} />
+          <RecipeImage src={node.image.file.url} alt={node.image.description} />
         ) : (
             ''
           )}

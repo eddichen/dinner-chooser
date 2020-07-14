@@ -5,13 +5,14 @@ import { Clock, Users } from 'react-feather';
 import Layout from '../components/layout';
 import MetaContent from '../components/metaContent/metaContent';
 import ShareRecipe from '../components/shareRecipe/shareRecipe';
+import RecipeImage from '../components/recipeImage/recipeImage';
 import {
   RecipeLayout,
   RecipeAttributes,
   RecipeAttribute,
   RecipeAttributeText,
   RecipeIntro,
-  RecipeImage,
+  RecipeImageContainer,
   RecipeTitle,
   RecipeTitleSecondary,
   Ingredients,
@@ -56,9 +57,9 @@ const Recipe = ({ data }: RecipeInfo) => {
       />
       <Layout>
         <RecipeLayout itemScope itemType="https://schema.org/Recipe">
-          <RecipeImage>
+          <RecipeImageContainer>
             {data.contentfulRecipe.image !== null ? (
-              <img
+              <RecipeImage
                 src={data.contentfulRecipe.image.file.url}
                 alt={data.contentfulRecipe.image.description}
                 itemProp="image"
@@ -66,7 +67,7 @@ const Recipe = ({ data }: RecipeInfo) => {
             ) : (
                 ''
               )}
-          </RecipeImage>
+          </RecipeImageContainer>
           <RecipeIntro>
             <RecipeTitle itemProp="name">{data.contentfulRecipe.title}</RecipeTitle>
             {data.contentfulRecipe.description !== '' ? <p itemProp="description">{data.contentfulRecipe.description}</p> : ''}

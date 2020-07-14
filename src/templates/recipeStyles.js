@@ -33,7 +33,7 @@ export const RecipeIntro = styled.div`
   }
 `;
 
-export const RecipeImage = styled.div`
+export const RecipeImageContainer = styled.div`
   margin-bottom: ${props => props.theme.spacing.lg};
 
   @media screen and (min-width: ${props => props.theme.breakpoint.md}) {
