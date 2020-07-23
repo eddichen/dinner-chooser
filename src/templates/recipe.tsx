@@ -49,12 +49,14 @@ const Recipe = ({ data }: RecipeInfo) => {
 
   return (
     <>
-      <MetaContent
-        location={location}
-        title={`Dinner Chooser - ${data.contentfulRecipe.title}`}
-        description={data.contentfulRecipe.description}
-        image={data.contentfulRecipe.image.file.url}
-      />
+      {typeof window !== 'undefined' ?
+        <MetaContent
+          location={location}
+          title={`Dinner Chooser - ${data.contentfulRecipe.title}`}
+          description={data.contentfulRecipe.description}
+          image={data.contentfulRecipe.image.file.url}
+        />
+        : ''}
       <Layout>
         <RecipeLayout itemScope itemType="https://schema.org/Recipe">
           <RecipeImageContainer>
@@ -117,7 +119,9 @@ const Recipe = ({ data }: RecipeInfo) => {
               </ol>
             </Method>
           </RecipeSteps>
-          <ShareRecipe title={data.contentfulRecipe.title} location={location} />
+          {typeof window !== 'undefined' ?
+            <ShareRecipe title={data.contentfulRecipe.title} location={location} />
+            : ''}
         </RecipeLayout>
       </Layout>
     </>

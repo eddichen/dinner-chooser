@@ -103,10 +103,12 @@ const IndexPage = ({ data }: PageQuery) => {
 
   return (
     <>
-      <MetaContent
-        location={location}
-        title={`Dinner Chooser`}
-      />
+      {typeof window !== 'undefined' ?
+        <MetaContent
+          location={location}
+          title={`Dinner Chooser`}
+        />
+        : ''}
       <Layout>
         <Link to="/recipes/">All recipes</Link>
         {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
