@@ -1,19 +1,25 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
+
 import { ThemeProvider } from 'styled-components';
 import { theme, GlobalStyle } from '../theme';
-import Header from './header';
+import { PureHeader as Header } from './header';
 
 describe('Header', () => {
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Header siteTitle="Default Starter" />
-        </ThemeProvider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+  it('renders the header correctly', () => {
+    const data = {
+      site: {
+        siteMetadata: {
+          title: 'Dinner Chooser'
+        }
+      }
+    };
+
+    render(
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Header data={data} />
+      </ThemeProvider>
+    );
   });
 });
