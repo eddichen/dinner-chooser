@@ -43,7 +43,7 @@ export const PureHeader = ({ data }: HeaderData) => (
   </HeaderContainer>
 );
 
-export const Header = props => {
+export const Header = (props: any) => {
   const data = useStaticQuery(graphql`
     query {
       site {
