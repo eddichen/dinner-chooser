@@ -6,17 +6,7 @@ import MetaContent from '../components/metaContent/metaContent';
 import RecipeCard from '../components/recipeCard';
 import Layout from '../components/layout';
 import Button from '../components/button/button';
-
-const CardListing = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-right: -${props => props.theme.spacing.md};
-
-  @media screen and (min-width: 60em) {
-    margin-right: -${props => props.theme.spacing.lg};
-  }
-`;
+import CardListing from '../components/cardListing/cardListing';
 
 const ButtonContainer = styled.div`
   text-align: center;
@@ -123,6 +113,11 @@ const IndexPage = ({ data }: PageQuery) => {
             Show me what you got!
           </Button>
         </ButtonContainer>
+        <CardListing>
+          {data.allContentfulRecipe.nodes.map(node => (
+            <RecipeCard node={node} key={node.id} />
+          ))}
+        </CardListing>
       </Layout>
     </>
   );
