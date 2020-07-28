@@ -83,7 +83,6 @@ const IndexPage = ({ data }: PageQuery) => {
   };
 
   const selectPhrase = (): void => {
-    console.log('previousRecipes', previousRecipes.length, 'recipes', data.allContentfulRecipe.nodes.length);
     if (endOfRecipes(previousRecipes.length, data.allContentfulRecipe.nodes.length)) return setPhrase('No more recipes');
 
     const selectedPhrase: string = phrases[Math.floor(Math.random() * phrases.length)];
@@ -102,9 +101,8 @@ const IndexPage = ({ data }: PageQuery) => {
     selectPhrase();
   }
 
-  // displaying a recipe on page load
-  const pageLoad = true;
-  useEffect(() => displayRecipe(), [pageLoad]);
+  // displaying a recipe on page load once
+  useEffect(() => displayRecipe(), []);
 
   return (
     <>
