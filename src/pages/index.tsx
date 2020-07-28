@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
@@ -83,6 +83,7 @@ const IndexPage = ({ data }: PageQuery) => {
   };
 
   const selectPhrase = (): void => {
+    console.log('previousRecipes', previousRecipes.length, 'recipes', data.allContentfulRecipe.nodes.length);
     if (endOfRecipes(previousRecipes.length, data.allContentfulRecipe.nodes.length)) return setPhrase('No more recipes');
 
     const selectedPhrase: string = phrases[Math.floor(Math.random() * phrases.length)];
@@ -100,6 +101,10 @@ const IndexPage = ({ data }: PageQuery) => {
     selectRecipe(data.allContentfulRecipe.nodes);
     selectPhrase();
   }
+
+  // displaying a recipe on page load
+  const pageLoad = true;
+  useEffect(() => displayRecipe(), [pageLoad]);
 
   return (
     <>
