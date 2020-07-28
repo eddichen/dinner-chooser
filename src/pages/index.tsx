@@ -106,7 +106,7 @@ const IndexPage = ({ data }: PageQuery) => {
       {typeof window !== 'undefined' ?
         <MetaContent
           location={location}
-          title={`Dinner Chooser`}
+          title={'Dinner Chooser'}
         />
         : ''}
       <Layout>

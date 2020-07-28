@@ -1,5 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -22,18 +23,38 @@ const HeaderTitleLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface HeaderProps {
-  siteTitle: string;
+interface HeaderData {
+  data: {
+    site: {
+      siteMetadata: {
+        title: string
+      }
+    }
+  }
 }
 
-const Header = ({ siteTitle }: HeaderProps) => (
+export const PureHeader = ({ data }: HeaderData) => (
   <HeaderContainer>
     <HeaderInnerContainer>
       <HeaderTitle>
-        <HeaderTitleLink to="/">{siteTitle}</HeaderTitleLink>
+        <HeaderTitleLink to="/">{data.site.siteMetadata.title}</HeaderTitleLink>
       </HeaderTitle>
     </HeaderInnerContainer>
   </HeaderContainer>
 );
+
+export const Header = (props: any) => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+
+  return <PureHeader {...props} data={data} />
+}
 
 export default Header;

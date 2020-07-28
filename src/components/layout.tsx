@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Header from './header';
@@ -23,20 +22,10 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header />
       <Container>
         <main>{children}</main>
       </Container>
