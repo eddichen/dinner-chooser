@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import MetaContent from '../components/metaContent/metaContent';
@@ -103,9 +103,8 @@ const IndexPage = ({ data }: PageQuery) => {
         />
         : ''}
       <Layout>
-        <Link to="/recipes/">All recipes</Link>
         {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
-        <CardListing>
+        <CardListing center>
           {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe} /> : null}
         </CardListing>
         <ButtonContainer>
@@ -113,6 +112,7 @@ const IndexPage = ({ data }: PageQuery) => {
             Show me what you got!
           </Button>
         </ButtonContainer>
+        <h2>All Recipes</h2>
         <CardListing>
           {data.allContentfulRecipe.nodes.map(node => (
             <RecipeCard node={node} key={node.id} />
