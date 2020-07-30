@@ -42,14 +42,6 @@ export const RecipeImageContainer = styled.div`
   }
 `;
 
-export const RecipeTitle = styled.h1`
-  font-size: ${props => props.theme.fontSize.xxxl};
-`;
-
-export const RecipeTitleSecondary = styled.h2`
-  font-size: ${props => props.theme.fontSize.xl};
-`;
-
 export const Ingredients = styled.div`
   font-size: ${props => props.theme.fontSize.md};
   margin-bottom: ${props => props.theme.spacing.lg};

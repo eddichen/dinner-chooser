@@ -1,20 +1,15 @@
 import styled, { css } from 'styled-components';
 
-const baseHeaderStyles = css`
-  
+const BaseHeaderStyles = css`
+  font-family: ${props => props.theme.fontFamily.serif};
 `;
 
-const H1 = styled.h1`
-  font-size: ${props => props.theme.fontSize.xxl};
-  ${baseHeaderStyles};
+export const H1 = styled.h1`
+  ${BaseHeaderStyles};
+  font-size: ${props => props.theme.fontSize.xxxl};
 `;
 
-const H2 = styled.h2`
+export const H2 = styled.h2`
+  ${BaseHeaderStyles};
   font-size: ${props => props.theme.fontSize.xl};
-  ${baseHeaderStyles};
 `;
-
-export const Heading = {
-  H1,
-  H2
-};
