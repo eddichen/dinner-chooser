@@ -7,13 +7,16 @@ import RecipeCard from '../components/recipeCard';
 import Layout from '../components/layout';
 import Button from '../components/button/button';
 import CardListing from '../components/cardListing/cardListing';
+import { H2 } from '../components/heading/heading';
 
 const ButtonContainer = styled.div`
   text-align: center;
 `;
 
 const PhraseHeader = styled.h2`
-  font-size: ${props => props.theme.fontSize.xxl};
+  font-family: ${props => props.theme.fontFamily.serif};
+  font-size: ${props => props.theme.fontSize.xxxl};
+  margin: ${props => props.theme.spacing.md} 0 ;
 `;
 
 interface PageQuery {
@@ -109,10 +112,10 @@ const IndexPage = ({ data }: PageQuery) => {
         </CardListing>
         <ButtonContainer>
           <Button type="button" onClick={() => displayRecipe()}>
-            Show me what you got!
+            Choose a Recipe for me
           </Button>
         </ButtonContainer>
-        <h2>All Recipes</h2>
+        <H2>All Recipes</H2>
         <CardListing>
           {data.allContentfulRecipe.nodes.map(node => (
             <RecipeCard node={node} key={node.id} />
