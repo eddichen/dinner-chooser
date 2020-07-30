@@ -1,17 +1,21 @@
 import { createGlobalStyle } from 'styled-components';
+import LatoRegularWoff from './fonts/lato/Lato-Regular.woff';
+import LatoRegularWoff2 from './fonts/lato/Lato-Regular.woff2';
+import MerriweatherRegularWoff from './fonts/merriweather/Merriweather-Regular.woff';
+import MerriweatherRegularWoff2 from './fonts/merriweather/Merriweather-Regular.woff2';
 
 export const theme = {
   fontFamily: {
-    sansSerif:
-      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-    serif: 'georgia, serif'
+    sansSerif: 'Lato, sans-serif',
+    serif: 'Merriweather, serif'
   },
   fontSize: {
     sm: '1.2rem',
     md: '1.6rem',
     lg: '2rem',
     xl: '2.4rem',
-    xxl: '3.2rem'
+    xxl: '3.2rem',
+    xxxl: '4rem'
   },
   color: {
     black: '#000',
@@ -31,16 +35,45 @@ export const theme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Lato';
+    src: url(${LatoRegularWoff2}) format('woff2'),
+        url(${LatoRegularWoff}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Merriweather';
+    src: url(${MerriweatherRegularWoff2}) format('woff2'),
+        url(${MerriweatherRegularWoff}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   html {
-    font-family: sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    font: 62.5%/1.5 Merriweather, serif;
+    box-sizing: border-box;
+    overflow-y: scroll;
   }
   body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: Merriweather, serif;
+    font-weight: normal;
     font-size: 1.6rem;
+    color: hsla(0, 0%, 0%, 0.8);
+    word-wrap: break-word;
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern", "liga", "clig", "calt";
+    -ms-font-feature-settings: "kern", "liga", "clig", "calt";
+    -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
+    font-feature-settings: "kern", "liga", "clig", "calt";
   }
   article,
   aside,
@@ -93,10 +126,6 @@ export const GlobalStyle = createGlobalStyle`
   }
   dfn {
     font-style: italic;
-  }
-  h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
   }
   mark {
     background-color: #ff0;
@@ -218,11 +247,6 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-appearance: button;
     font: inherit;
   }
-  html {
-    font: 62.5%/1.25 georgia, serif;
-    box-sizing: border-box;
-    overflow-y: scroll;
-  }
   * {
     box-sizing: inherit;
   }
@@ -231,17 +255,6 @@ export const GlobalStyle = createGlobalStyle`
   }
   *:after {
     box-sizing: inherit;
-  }
-  body {
-    color: hsla(0, 0%, 0%, 0.8);
-    font-family: georgia, serif;
-    font-weight: normal;
-    word-wrap: break-word;
-    font-kerning: normal;
-    -moz-font-feature-settings: "kern", "liga", "clig", "calt";
-    -ms-font-feature-settings: "kern", "liga", "clig", "calt";
-    -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
-    font-feature-settings: "kern", "liga", "clig", "calt";
   }
   img {
     max-width: 100%;
@@ -264,9 +277,8 @@ export const GlobalStyle = createGlobalStyle`
     padding-top: 0;
     margin-bottom: 1.45rem;
     color: inherit;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    font-weight: bold;
+    font-family: Lato, sans-serif;
+    font-weight: normal;
     text-rendering: optimizeLegibility;
     font-size: 2.25rem;
     line-height: 1.1;
@@ -281,9 +293,8 @@ export const GlobalStyle = createGlobalStyle`
     padding-top: 0;
     margin-bottom: 1.45rem;
     color: inherit;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    font-weight: bold;
+    font-family: Lato, sans-serif;
+    font-weight: normal;
     text-rendering: optimizeLegibility;
     font-size: 1.62671rem;
     line-height: 1.1;
