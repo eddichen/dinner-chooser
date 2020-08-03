@@ -1,29 +1,22 @@
-import React, { useState } from 'react';
-import { graphql, Link } from 'gatsby';
+import React, { useState, useEffect } from 'react';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import MetaContent from '../components/metaContent/metaContent';
 import RecipeCard from '../components/recipeCard';
 import Layout from '../components/layout';
 import Button from '../components/button/button';
-
-const CardListing = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-right: -${props => props.theme.spacing.md};
-
-  @media screen and (min-width: 60em) {
-    margin-right: -${props => props.theme.spacing.lg};
-  }
-`;
+import CardListing from '../components/cardListing/cardListing';
+import { H2 } from '../components/heading/heading';
 
 const ButtonContainer = styled.div`
   text-align: center;
 `;
 
 const PhraseHeader = styled.h2`
-  font-size: ${props => props.theme.fontSize.xxl};
+  font-family: ${props => props.theme.fontFamily.serif};
+  font-size: ${props => props.theme.fontSize.xxxl};
+  margin: ${props => props.theme.spacing.md} 0 ;
 `;
 
 interface PageQuery {
@@ -101,6 +94,9 @@ const IndexPage = ({ data }: PageQuery) => {
     selectPhrase();
   }
 
+  // displaying a recipe on page load once
+  useEffect(() => displayRecipe(), []);
+
   return (
     <>
       {typeof window !== 'undefined' ?
@@ -110,16 +106,21 @@ const IndexPage = ({ data }: PageQuery) => {
         />
         : ''}
       <Layout>
-        <Link to="/recipes/">All recipes</Link>
         {randomPhrase !== '' ? <ButtonContainer><PhraseHeader>{randomPhrase}&hellip;</PhraseHeader></ButtonContainer> : ''}
-        <CardListing>
+        <CardListing center>
           {Object.entries(randomRecipe).length !== 0 ? <RecipeCard node={randomRecipe} /> : null}
         </CardListing>
         <ButtonContainer>
           <Button type="button" onClick={() => displayRecipe()}>
-            Show me what you got!
+            Choose a Recipe for me
           </Button>
         </ButtonContainer>
+        <H2>All Recipes</H2>
+        <CardListing>
+          {data.allContentfulRecipe.nodes.map(node => (
+            <RecipeCard node={node} key={node.id} />
+          ))}
+        </CardListing>
       </Layout>
     </>
   );

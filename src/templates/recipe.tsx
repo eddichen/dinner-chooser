@@ -6,6 +6,7 @@ import Layout from '../components/layout';
 import MetaContent from '../components/metaContent/metaContent';
 import ShareRecipe from '../components/shareRecipe/shareRecipe';
 import RecipeImage from '../components/recipeImage/recipeImage';
+import { H1, H2 } from '../components/heading/heading';
 import {
   RecipeLayout,
   RecipeAttributes,
@@ -13,8 +14,6 @@ import {
   RecipeAttributeText,
   RecipeIntro,
   RecipeImageContainer,
-  RecipeTitle,
-  RecipeTitleSecondary,
   Ingredients,
   IngredientsList,
   RecipeSteps,
@@ -71,7 +70,7 @@ const Recipe = ({ data }: RecipeInfo) => {
               )}
           </RecipeImageContainer>
           <RecipeIntro>
-            <RecipeTitle itemProp="name">{data.contentfulRecipe.title}</RecipeTitle>
+            <H1 itemProp="name">{data.contentfulRecipe.title}</H1>
             {data.contentfulRecipe.description !== '' ? <p itemProp="description">{data.contentfulRecipe.description}</p> : ''}
             <RecipeAttributes>
               <RecipeAttribute>
@@ -90,7 +89,7 @@ const Recipe = ({ data }: RecipeInfo) => {
             </RecipeAttributes>
           </RecipeIntro>
           <Ingredients>
-            <RecipeTitleSecondary>Ingredients</RecipeTitleSecondary>
+            <H2>Ingredients</H2>
             <IngredientsList>
               {data.contentfulRecipe.ingredients.map((ingredient, index) => (
                 <li key={index} itemProp="recipeIngredient">{ingredient}</li>
@@ -100,7 +99,7 @@ const Recipe = ({ data }: RecipeInfo) => {
           <RecipeSteps>
             {data.contentfulRecipe.preparation ? (
               <Preparation>
-                <RecipeTitleSecondary>Preparation</RecipeTitleSecondary>
+                <H2>Preparation</H2>
                 <ol>
                   {data.contentfulRecipe.preparation.map((step, index) => (
                     <RecipeStepsListItem key={index} itemProp="recipeInstructions">{step}</RecipeStepsListItem>
@@ -111,7 +110,7 @@ const Recipe = ({ data }: RecipeInfo) => {
                 ''
               )}
             <Method>
-              <RecipeTitleSecondary>Method</RecipeTitleSecondary>
+              <H2>Method</H2>
               <ol>
                 {data.contentfulRecipe.method.map((step, index) => (
                   <RecipeStepsListItem key={index} itemProp="recipeInstructions">{step}</RecipeStepsListItem>

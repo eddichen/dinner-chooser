@@ -30,7 +30,7 @@ const CardTitle = styled.h2`
   }
 `;
 
-interface RecipeCard {
+export interface RecipeCard {
   node: {
     id: string;
     title: string;

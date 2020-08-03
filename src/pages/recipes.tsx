@@ -3,22 +3,13 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
-import RecipeCard, { RecipePreview } from '../components/recipeCard';
-
-const CardListing = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -${props => props.theme.spacing.md};
-
-  @media screen and (min-width: 60em) {
-    margin-right: -${props => props.theme.spacing.lg};
-  }
-`;
+import CardListing from '../components/cardListing/cardListing';
+import RecipeCard from '../components/recipeCard';
 
 interface RecipeList {
   data: {
     allContentfulRecipe: {
-      nodes: [RecipePreview];
+      nodes: [RecipeCard];
     };
   };
 }
